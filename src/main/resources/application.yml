@@ -1,0 +1,16 @@
+# Local
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3307/yumi
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
