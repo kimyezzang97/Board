@@ -1,4 +1,7 @@
 # Local
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:mariadb://127.0.0.1:3307/yumi
@@ -9,6 +12,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+      naming: # 스프링 entity와 DB 테이블 필드간 필드명 작명 전략 / 자바의 카멜 표기법을 테이블의 언더 스코어 표기법으로 매핑
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
         show_sql: true
