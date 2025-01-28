@@ -1,6 +1,10 @@
 # Local
 server:
   port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
 spring:
   datasource:
@@ -8,6 +12,9 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: root
+  mustache:
+    servlet:
+      expose-request-attributes: true
 
   jpa:
     hibernate:
@@ -18,4 +25,3 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
