@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/join").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/user/update/**").hasRole("USER")
+                        .requestMatchers("/board/**").hasRole("USER")
                         .requestMatchers("/**").permitAll());
 
         // 로그인 방식 설정 Form 로그인 방식
