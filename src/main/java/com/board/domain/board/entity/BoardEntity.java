@@ -1,5 +1,6 @@
 package com.board.domain.board.entity;
 
+import com.board.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,6 @@ public class BoardEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @ManyToOne
+    private UserEntity userEntity;
 }
