@@ -34,7 +34,7 @@ public class PostService {
 
     // 게시글 작성
     @Transactional
-    public CreatePostResponse createPost(CreatePostRequest createPostRequest){ //
+    public CreatePostResponse createPost(CreatePostRequest createPostRequest){
         String username = SecurityUtil.getCurrentUsername();
         Optional<Member> member = memberRepository.findByUsername(username);
 
@@ -47,7 +47,6 @@ public class PostService {
         );
 
         return createPostResponse;
-
     }
 
     // 전체 게시글 리스트 조회
