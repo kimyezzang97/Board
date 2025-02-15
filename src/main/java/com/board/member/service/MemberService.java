@@ -1,7 +1,6 @@
 package com.board.member.service;
 
 import com.board.common.exception.member.ConflictMemberException;
-import com.board.constant.MemberRole;
 import com.board.member.repository.MemberRepository;
 import com.board.member.request.JoinRequest;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -52,7 +52,7 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.builder()
                 .status(StatusEnum.OK)
                 .msg("사용가능 합니다.")
-                .data(true)
+                .data(memberService.getChkUsername(username))
                 .build());
     }
 
