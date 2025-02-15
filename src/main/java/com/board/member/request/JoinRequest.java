@@ -1,8 +1,6 @@
 package com.board.member.request;
 
-import com.board.constant.MemberRole;
 import com.board.entity.Member;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
