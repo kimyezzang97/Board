@@ -3,7 +3,9 @@ package com.board.post.controller;
 
 import com.board.config.ApiResponse;
 import com.board.constant.StatusEnum;
+import com.board.post.request.CreateCommentsRequest;
 import com.board.post.request.CreatePostRequest;
+import com.board.post.request.PatchCommentsRequest;
 import com.board.post.request.PatchPostRequest;
 import com.board.post.service.PostService;
 import jakarta.validation.Valid;
@@ -96,6 +98,51 @@ public class PostController {
         return ResponseEntity.ok(ApiResponse.builder()
                 .status(StatusEnum.OK)
                 .msg("게시글이 삭제 되었습니다.")
+                .data("")
+                .build());
+    }
+
+
+    /* 댓글 기능 */
+
+    /**
+     * 댓글 생성
+     * @param boardId
+     * @return
+     */
+    @PostMapping("/{boardId}/comments")
+    public ResponseEntity<?> createComments(@PathVariable Long boardId, @Valid @RequestBody CreateCommentsRequest createCommentsRequest){
+
+        return ResponseEntity.ok(ApiResponse.builder()
+                .status(StatusEnum.OK)
+                .msg("")
+                .data(postService.createComments(boardId, createCommentsRequest))
+                .build());
+    }
+
+    /**
+     * 댓글 수정
+     * @param boardId
+     * @param patchCommentsRequest
+     * @return
+     */
+    @PatchMapping("/{boardId}/comments/{commentsId}")
+    public ResponseEntity<?> patchComments(@PathVariable Long boardId, @PathVariable Long commentsId,@Valid @RequestBody PatchCommentsRequest patchCommentsRequest){
+
+        return ResponseEntity.ok(ApiResponse.builder()
+                .status(StatusEnum.OK)
+                .msg("댓글 수정이 완료되었습니다.")
+                .data(postService.patchComments(boardId, commentsId, patchCommentsRequest))
+                .build());
+    }
+
+    @DeleteMapping("/{boardId}/comments/{commentsId}")
+    public ResponseEntity<?> deleteComments(@PathVariable Long boardId, @PathVariable Long commentsId){
+        postService.deleteComments(commentsId);
+
+        return ResponseEntity.ok(ApiResponse.builder()
+                .status(StatusEnum.OK)
+                .msg("댓글이 삭제 되었습니다.")
                 .data("")
                 .build());
     }
