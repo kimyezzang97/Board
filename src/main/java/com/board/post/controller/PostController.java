@@ -37,6 +37,11 @@ public class PostController {
                 .build());
     }
 
+    /**
+     * 선택 게시글 조회
+     * @param boardId
+     * @return
+     */
     @GetMapping("/{boardId}")
     public ResponseEntity<?> getPost(@PathVariable Long boardId){
 
