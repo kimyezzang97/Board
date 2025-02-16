@@ -13,4 +13,7 @@ public interface PostRepository extends JpaRepository<Board, Long> {
 
     // 게시글 상세 조회
     Board findByBoardId(Long boardId);
+
+    // 게시글 삭제
+    void deleteByBoardId(Long boardId);
 }

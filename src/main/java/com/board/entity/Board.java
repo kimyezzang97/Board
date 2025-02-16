@@ -1,10 +1,7 @@
 package com.board.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -45,6 +42,12 @@ public class Board {
         this.title = title;
         this.content = content;
         this.member = member;
+    }
+
+    // 업데이트 메서드 추가
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
 }
