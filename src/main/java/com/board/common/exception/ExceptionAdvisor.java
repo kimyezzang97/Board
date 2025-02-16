@@ -1,6 +1,7 @@
 package com.board.common.exception;
 
 import com.board.common.exception.member.ConflictMemberException;
+import com.board.common.exception.member.ForbiddenException;
 import com.board.common.exception.member.NameValidException;
 import com.board.config.ApiResponse;
 import com.board.constant.StatusEnum;
@@ -59,6 +60,16 @@ public class ExceptionAdvisor {
     protected ResponseEntity<?> conflictMember(ConflictMemberException exception) {
         return ResponseEntity.ok(ApiResponse.builder()
                 .status(StatusEnum.JOIN_CONFLICT)
+                .msg(exception.getStatus().getMessage())
+                .data("")
+                .build());
+    }
+
+    // 권한 없음
+    @ExceptionHandler(ForbiddenException.class)
+    protected ResponseEntity<?> forbidden(ForbiddenException exception) {
+        return ResponseEntity.ok(ApiResponse.builder()
+                .status(StatusEnum.POST_FORBIDDEN)
                 .msg(exception.getStatus().getMessage())
                 .data("")
                 .build());
