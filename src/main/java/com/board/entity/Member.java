@@ -1,7 +1,6 @@
 package com.board.entity;
 
 
-import com.board.constant.MemberRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

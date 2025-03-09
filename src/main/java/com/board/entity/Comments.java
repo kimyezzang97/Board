@@ -1,53 +1,55 @@
 package com.board.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.Comment;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import org.hibernate.annotations.Comment;
 import java.time.LocalDateTime;
+
+
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class Board {
+public class Comments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
-    private Long boardId;
-
-    @Comment("제목")
-    @Column(nullable = false)
-    private String title;
+    @Column(name = "comment_id")
+    private Long commentsId;
 
     @Comment("내용")
     @Column(nullable = false)
     @Lob
     private String content;
 
-    @Comment("게시판 생성 날짜")
+    @Comment("댓글 등록 날짜")
     @Column(name = "create_date")
     @CreatedDate
     private LocalDateTime createDate;
 
     @ManyToOne
-    @JoinColumn(name="member_id", referencedColumnName = "member_id", foreignKey = @ForeignKey(name = "FK_BOARD_MEMBER"))
+    @JoinColumn(name="member_id", referencedColumnName = "member_id", foreignKey = @ForeignKey(name = "FK_COMMENTS_MEMBER"))
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name="board_id", referencedColumnName = "board_id", foreignKey = @ForeignKey(name = "FK_COMMENTS_BOARD"))
+    private Board board;
+
     @Builder
-    public Board(String title, String content, Member member){
-        this.title = title;
+    public Comments( String content, Member member, Board board){
         this.content = content;
         this.member = member;
+        this.board = board;
     }
 
     // 업데이트 메서드 추가
-    public void update(String title, String content) {
-        this.title = title;
+    public void update( String content) {
         this.content = content;
     }
-
 }

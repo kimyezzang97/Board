@@ -1,6 +1,5 @@
 package com.board.common.jwt;
 
-import com.board.constant.MemberRole;
 import com.board.entity.Member;
 import com.board.member.service.CustomUserDetails;
 import io.jsonwebtoken.ExpiredJwtException;
