@@ -1,6 +1,7 @@
 package com.board.post.service;
 
 import com.board.common.exception.member.ForbiddenException;
+import com.board.common.exception.post.PostEmptyException;
 import com.board.common.jwt.JWTUtil;
 import com.board.config.SecurityUtil;
 import com.board.entity.Board;
@@ -16,6 +17,7 @@ import com.board.post.request.PatchPostRequest;
 import com.board.post.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +69,8 @@ public class PostService {
     // 상세 게시글 조회
     @Transactional(readOnly = true)
     public GetPostListResponse getPost(Long boardId){
-        Board board = postRepository.findByBoardId(boardId);
+        Board board = postRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new PostEmptyException());
 
         GetPostListResponse getPostListResponse = new GetPostListResponse(board.getBoardId(),
                 board.getMember().getUsername(),
@@ -83,7 +86,8 @@ public class PostService {
     public PatchPostResponse patchPost(Long boardId, PatchPostRequest patchPostRequest){
         String username = SecurityUtil.getCurrentUsername();
 
-        Board board = postRepository.findByBoardId(boardId);
+        Board board = postRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new PostEmptyException());
 
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(ForbiddenException::new);
@@ -104,7 +108,8 @@ public class PostService {
     public void deletePost(Long boardId){
         String username = SecurityUtil.getCurrentUsername();
 
-        Board board = postRepository.findByBoardId(boardId);
+        Board board = postRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new PostEmptyException());
 
         // 작성자 확인
         if(!board.getMember().getMemberId().equals(memberRepository.findByUsername(username).get().getMemberId())){
@@ -122,7 +127,10 @@ public class PostService {
         String username = SecurityUtil.getCurrentUsername();
         Member member = memberRepository.findByUsername(username).get();
 
-        Comments comments = commentsRepository.save(createCommentsRequest.to(member, postRepository.findByBoardId(boardId)));
+        Board board = postRepository.findByBoardId(boardId)
+                .orElseThrow(() -> new PostEmptyException());
+
+        Comments comments = commentsRepository.save(createCommentsRequest.to(member, board));
         CreateCommentsResponse createCommentsResponse = new CreateCommentsResponse(
                 comments.getCommentsId(),
                 comments.getContent(),

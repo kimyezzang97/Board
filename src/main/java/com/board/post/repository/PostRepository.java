@@ -5,6 +5,7 @@ import com.board.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Board, Long> {
 
@@ -12,7 +13,7 @@ public interface PostRepository extends JpaRepository<Board, Long> {
     List<Board> findAllByOrderByCreateDateDesc();
 
     // 게시글 상세 조회
-    Board findByBoardId(Long boardId);
+    Optional<Board> findByBoardId(Long boardId);
 
     // 게시글 삭제
     void deleteByBoardId(Long boardId);

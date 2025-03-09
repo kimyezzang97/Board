@@ -3,6 +3,7 @@ package com.board.common.exception;
 import com.board.common.exception.member.ConflictMemberException;
 import com.board.common.exception.member.ForbiddenException;
 import com.board.common.exception.member.NameValidException;
+import com.board.common.exception.post.PostEmptyException;
 import com.board.config.ApiResponse;
 import com.board.constant.StatusEnum;
 import jakarta.validation.ConstraintViolationException;
@@ -74,4 +75,17 @@ public class ExceptionAdvisor {
                 .data("")
                 .build());
     }
+
+    /**
+     * POST (게시물)
+     */
+    @ExceptionHandler(PostEmptyException.class)
+    protected ResponseEntity<?> emptyPost(PostEmptyException exception) {
+        return ResponseEntity.ok(ApiResponse.builder()
+                .status(StatusEnum.EMPTY_POST)
+                .msg(exception.getStatus().getMessage())
+                .data("")
+                .build());
+    }
+
 }
