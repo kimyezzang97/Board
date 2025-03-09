@@ -26,14 +26,12 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
 
-    private final JWTUtil jwtUtil;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final CommentsRepository commentsRepository;
 
     @Autowired
-    public PostService(JWTUtil jwtUtil, PostRepository postRepository, MemberRepository memberRepository, CommentsRepository commentsRepository) {
-        this.jwtUtil = jwtUtil;
+    public PostService(PostRepository postRepository, MemberRepository memberRepository, CommentsRepository commentsRepository) {
         this.postRepository = postRepository;
         this.memberRepository = memberRepository;
         this.commentsRepository = commentsRepository;
