@@ -85,8 +85,11 @@ public class PostService {
 
         Board board = postRepository.findByBoardId(boardId);
 
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(ForbiddenException::new);
+
         // 작성자 확인
-        if(!board.getMember().getMemberId().equals(memberRepository.findByUsername(username).get().getMemberId())){
+        if(!board.getMember().getMemberId().equals(member.getMemberId())){
             throw new ForbiddenException();
         }
 
